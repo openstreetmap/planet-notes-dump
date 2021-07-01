@@ -45,7 +45,7 @@ for note in note_cursor:
     comment_cursor.execute("""SELECT created_at,author_id,users.display_name,body,event
                               FROM note_comments
                               FULL OUTER JOIN users ON (note_comments.author_id=users.id)
-                              WHERE note_id = %s ORDER BY created_at""", [note[0]])
+                              WHERE note_id = %s AND visible = true ORDER BY created_at""", [note[0]])
     for comment in comment_cursor:
         comment_elem = etree.SubElement(note_elem, "comment", OrderedDict([
             ('action', comment[4]),
